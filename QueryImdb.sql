@@ -119,6 +119,7 @@ SELECT year, COUNT(year) year_count FROM movies WHERE rankscore>9 GROUP BY year 
 
 
 
+
 -- --------------------------------------------------------
 --                     JOIN 
 -- --------------------------------------------------------
