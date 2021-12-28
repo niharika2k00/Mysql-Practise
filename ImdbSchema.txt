@@ -1,0 +1,46 @@
+
+
+// --------------------------------------------------------------
+//                 SCHEMA OF THE IMDB TABLES 
+// --------------------------------------------------------------
+
+
+  TABLE actors :
+    id 
+    first_name
+    last_name
+    gender
+
+
+  TABLE directors :
+     id 
+     first_name
+     last_name
+
+
+  TABLE directors_genres :
+      director_id
+      genre
+      prob
+
+
+  TABLE movies :
+      name 
+      year
+      rankscore
+  
+
+  TABLE movies_directors :
+      director_id
+      movie_id     
+
+
+  TABLE movies_genres :   
+      movie_id
+      genre
+
+
+  TABLE roles : 
+      actor_id
+      movie_id
+      role
