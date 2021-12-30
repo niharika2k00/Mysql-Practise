@@ -14,12 +14,14 @@ SELECT * FROM actors;   /* Display the full table */
 -- 12 rows from movies table contains only 2 mentioned columns
 SELECT name,rankscore FROM movies LIMIT 20;  
 
--- Display 20 rows by removing the first 2 rows 
+-- Display 20 rows by removing the first 2 rows (FROM THE FIRST REMOVED)
 SELECT name,rankscore FROM movies LIMIT 20 OFFSET 2;     
 
 
 
--- KEYWORD ORDER BY ascending & descending order
+-- -----------------------------------------------------------------
+-- KEYWORD ORDER BY ascending & descending order  ASC | DESC
+-- -----------------------------------------------------------------
 SELECT name,rankscore,year FROM movies ORDER BY name LIMIT 10;
 SELECT name,id,year FROM movies ORDER BY year DESC LIMIT 10;
 
@@ -55,7 +57,7 @@ SELECT name,year,rankscore FROM movies WHERE rankscore>9 AND year>2000  LIMIT 15
 SELECT name,year,rankscore FROM movies  ORDER BY year  WHERE NOT year<=2000  LIMIT 20 ;     /* ascending */
 SELECT name,year,rankscore FROM movies WHERE rankscore>9 OR year>2007;
 SELECT name,year,rankscore FROM movies WHERE year BETWEEN 1999 AND 2000;
--- #lowvalue <= highvalue else you will get an empty result set
+-- # lowvalue <= highvalue else you will get an empty result set
 SELECT director_id, genre FROM directors_genres WHERE genre IN ('Comedy','Horror');  
 -- # same as genre='Comedy' OR genre='Horror'
 
@@ -66,12 +68,15 @@ SELECT director_id, genre FROM directors_genres WHERE genre IN ('Comedy','Horror
 -- % => wildcard character to imply zero or more characters
 /* 
         WHERE name LIKE 'Ver%'  ---> name starts with "Ver..."
-        WHERE name LIKE 'ver%'  ---> name ends with "...ver"
-        WHERE name LIKE 'vis%'  ---> name contains "... vis ..."
+        WHERE name LIKE '%ver'  ---> name ends with "...ver"
+        WHERE name LIKE '%vis%'  ---> name contains "... vis ..."
          "_"                    --->  contains EXACTLY one character in that place
 
         * If we want to macth % or _, we should use the backslash as the escape character: \% and \_
+
+        WHERE interests LIKE '%sports%' OR interests LIKE '%pub%'  --> FOR MULTIPLE STATRING CHARACTERS.
  */
+ 
 SELECT name,year,rankscore FROM movies WHERE name LIKE 'Tis%'; 
 SELECT first_name, last_name FROM actors WHERE first_name LIKE '%es';  
 SELECT first_name, last_name FROM actors WHERE first_name LIKE '%es%';
@@ -79,6 +84,24 @@ SELECT  first_name, last_name FROM actors WHERE first_name LIKE 'Agn_s';
 SELECT first_name, last_name FROM actors WHERE first_name LIKE 'Niha%' AND first_name NOT LIKE 'Li%';
 
 
+
+-- -------------------------------------
+--       Functions in Strings
+-- -------------------------------------
+/* 
+   The RIGHT() function extracts a number of characters from a string (starting from right).
+                    Syntax : RIGHT(string, number_of_chars)
+ */
+
+-- https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/
+SELECT DISTINCT genre FROM movies_genres WHERE RIGHT(genre, 1) IN ('a','e','i','o','u');  --  Find the names that end with vowels.
+SELECT DISTINCT CITY FROM STATION WHERE CITY REGEXP "[aiueo]$";  --  Find the names that end with vowels.
+SELECT DISTINCT CITY FROM STATION WHERE CITY REGEXP '^[^aeiou]';  -- Not start with vowels
+SELECT DISTINCT CITY FROM STATION WHERE CITY NOT REGEXP '[^aeiou]';   -- Not start with vowels
+
+SELECT DISTINCT CITY FROM STATION WHERE  CITY RLIKE '^[aeiouAEIOU].*[aeiouAEIOU]$';  -- Have vowels in both first and last.
+SELECT distinct CITY FROM STATION WHERE CITY LIKE '[^aeiou]%[^aeiou]';
+SELECT DISTINCT CITY FROM STATION WHERE CITY NOT LIKE "[AEIOU]%";
 
 
 
@@ -88,7 +111,7 @@ SELECT MAX(year) FROM movies;
 SELECT COUNT(*) FROM movies;        /* number of rows */
 SELECT COUNT(*) FROM movies where year>2000;
 SELECT COUNT(year) FROM movies;
-
+-- SELECT COUNT(CITY)  - COUNT (DISTINCT CITY) FROM STATION ;   Difference between 2 Counts 
 
 
 
