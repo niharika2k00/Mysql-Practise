@@ -157,7 +157,9 @@ SELECT year, COUNT(year) year_count FROM movies WHERE rankscore>9 GROUP BY year 
   3) RIGHT (OUTER) JOIN:  Returns all records from the RIGHT table, and the matched records from the left table
   4) FULL (OUTER) JOIN:   Returns all records when there is a match in either left or right table
    
-  5) NATURAL JOIN : based on the Common Columns in the two tables with same attribute name and datatype. 
+  5) NATURAL JOIN : based on the Common Columns in the two tables with same attribute name and datatype.
+
+                 FROM   -   JOIN   -   ON  
  */
 SELECT m.name, g.genre from movies m  JOIN movies_genres g ON m.id=g.movie_id LIMIT 20;
 SHOW TABLES;
@@ -167,7 +169,8 @@ SELECT * FROM directors_genres NATURAL JOIN movies_directors;  /* Join both the 
 
 
 -- Where Clause use + Join use same result 
-SELECT directors_genres.genre , directors_genres.director_id FROM  directors_genres , movies_directors WHERE directors_genres.director_id =  movies_directors.director_id;
+SELECT directors_genres.genre , directors_genres.director_id  FROM  directors_genres , movies_directors WHERE directors_genres.director_id =  movies_directors.director_id;
+SELECT COUNT(genre) FROM directors_genres WHERE genre = 'Fantasy' ; 
 SELECT dir.genre , dir.director_id FROM directors_genres dir JOIN  movies_directors mov ON directors_genres.director_id =  movies_directors.director_id;
 SELECT  dir.genre , mov.director_id , dir.prob FROM  directors_genres dir INNER JOIN movies_directors mov ON dir.director_id =  mov.director_id;
 SELECT actors.first_name , actors.last_name FROM actors LEFT JOIN directors ON actors.first_name = directors.first_name;
