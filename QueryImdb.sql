@@ -34,6 +34,11 @@ SELECT DISTINCT first_name, last_name FROM directors ;
 
 
 -- KEYWORD WHERE
+/* 
+            First      FROM 
+            Second     WHERE
+            Third      ORDER BY
+ */
 SELECT name,year,rankscore FROM movies WHERE rankscore>9.8 ;
 SELECT  name,year,rankscore FROM movies WHERE rankscore > 9.8 ORDER BY rankscore DESC LIMIT 20;
 
@@ -89,8 +94,8 @@ SELECT first_name, last_name FROM actors WHERE first_name LIKE 'Niha%' AND first
 --       Functions in Strings
 -- -------------------------------------
 /* 
-   The RIGHT() function extracts a number of characters from a string (starting from right).
-                    Syntax : RIGHT(string, number_of_chars)
+   The RIGHT() ==> function extracts a number of characters from a string (starting from right).
+                    Syntax : RIGHT (string, number_of_chars)
  */
 
 -- https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/
