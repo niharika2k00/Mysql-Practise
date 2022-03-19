@@ -14,7 +14,7 @@ SELECT * FROM actors;   /* Display the full table */
 -- 12 rows from movies table contains only 2 mentioned columns
 SELECT name,rankscore FROM movies LIMIT 20;  
 
--- Display 20 rows by removing the first 2 rows (FROM THE FIRST REMOVED)
+-- Display 20 rows by removing the first 2 rows (FROM THE TOP REMOVED)
 SELECT name,rankscore FROM movies LIMIT 20 OFFSET 2;     
 
 
@@ -22,8 +22,8 @@ SELECT name,rankscore FROM movies LIMIT 20 OFFSET 2;
 -- -----------------------------------------------------------------
 -- KEYWORD ORDER BY ascending & descending order  ASC | DESC
 -- -----------------------------------------------------------------
-SELECT name,rankscore,year FROM movies ORDER BY name LIMIT 10;
-SELECT name,id,year FROM movies ORDER BY year DESC LIMIT 10;
+SELECT name,rankscore,year FROM movies ORDER BY name LIMIT 10;   -- ORDER BY name ASC
+ SELECT name,id,year FROM movies ORDER BY year DESC LIMIT 10;
 
 
 
@@ -39,7 +39,7 @@ SELECT DISTINCT first_name, last_name FROM directors ;
             Second     WHERE
             Third      ORDER BY
  */
-SELECT name,year,rankscore FROM movies WHERE rankscore>9.8 ;
+SELECT name,year,rankscore FROM movies WHERE rankscore > 9.8 ;
 SELECT  name,year,rankscore FROM movies WHERE rankscore > 9.8 ORDER BY rankscore DESC LIMIT 20;
 
 -- # Comparison Operators: = , <> or != , < , <= , >, >= 
@@ -82,8 +82,8 @@ SELECT director_id, genre FROM directors_genres WHERE genre IN ('Comedy','Horror
         WHERE interests LIKE '%sports%' OR interests LIKE '%pub%'  --> FOR MULTIPLE STATRING CHARACTERS.
  */
  
-SELECT name,year,rankscore FROM movies WHERE name LIKE 'Tis%'; 
-SELECT first_name, last_name FROM actors WHERE first_name LIKE '%es';  
+SELECT name,year,rankscore FROM movies WHERE name LIKE 'tis%'; 
+SELECT first_name, last_name FROM actors WHERE first_name LIKE '_es%';   -- only 1 letter at front
 SELECT first_name, last_name FROM actors WHERE first_name LIKE '%es%';
 SELECT  first_name, last_name FROM actors WHERE first_name LIKE 'Agn_s';
 SELECT first_name, last_name FROM actors WHERE first_name LIKE 'Niha%' AND first_name NOT LIKE 'Li%';
@@ -133,8 +133,11 @@ SELECT year, COUNT(year) year_count FROM movies GROUP BY year ORDER BY year_coun
 /*  
        # CONDITIONS on groups using HAVING .... Order of execution:
 1. GROUP BY to create groups
-2. apply the AGGREGATE FUNCTION
+2. Apply the AGGREGATE FUNCTION
 3. Apply HAVING condition.
+
+     WHERE clause is used to place conditions on columns 
+     HAVING  --> when GROUP BY clause.
 
          * HAVING without GROUP BY is same as WHERE 
          * HAVING vs WHERE
@@ -153,7 +156,7 @@ SELECT year, COUNT(year) year_count FROM movies WHERE rankscore>9 GROUP BY year 
 -- --------------------------------------------------------
 /* 
   1) (INNER) JOIN:        INNER JOIN keyword selects all rows from both the tables as long as the condition satisfies.
-  2) LEFT (OUTER) JOIN:   Returns all records from the LEFFT table, and the matched records from the right table
+  2) LEFT (OUTER) JOIN:   Returns all records from the LEFT table, and the matched records from the right table ( A LEFT JOIN B  means  all ✅ A)
   3) RIGHT (OUTER) JOIN:  Returns all records from the RIGHT table, and the matched records from the left table
   4) FULL (OUTER) JOIN:   Returns all records when there is a match in either left or right table
    
@@ -163,16 +166,16 @@ SELECT year, COUNT(year) year_count FROM movies WHERE rankscore>9 GROUP BY year 
  */
 SELECT m.name, g.genre from movies m  JOIN movies_genres g ON m.id=g.movie_id LIMIT 20;
 SHOW TABLES;
-DESCRIBE directors_genres;
+DESCRIBE movies_directors;
 SELECT * FROM movies_genres;
-SELECT * FROM directors_genres NATURAL JOIN movies_directors;  /* Join both the Tables */
+SELECT * FROM directors_genres NATURAL JOIN movies_directors LIMIT 20 ;  /* Join both the Tables */
 
 
 -- Where Clause use + Join use same result 
-SELECT directors_genres.genre , directors_genres.director_id  FROM  directors_genres , movies_directors WHERE directors_genres.director_id =  movies_directors.director_id;
+SELECT directors_genres.genre , directors_genres.director_id  FROM  directors_genres , movies_directors WHERE directors_genres.director_id =  movies_directors.director_id LIMIT 20;
 SELECT COUNT(genre) FROM directors_genres WHERE genre = 'Fantasy' ; 
-SELECT dir.genre , dir.director_id FROM directors_genres dir JOIN  movies_directors mov ON directors_genres.director_id =  movies_directors.director_id;
-SELECT  dir.genre , mov.director_id , dir.prob FROM  directors_genres dir INNER JOIN movies_directors mov ON dir.director_id =  mov.director_id;
+SELECT dir.genre , dir.director_id FROM directors_genres dir JOIN  movies_directors mov ON directors_genres.director_id =  movies_directors.director_id LIMIT 20;
+SELECT  dir.genre , mov.director_id , dir.prob FROM  directors_genres dir INNER JOIN movies_directors mov ON dir.director_id =  mov.director_id LIMIT 20;
 SELECT actors.first_name , actors.last_name FROM actors LEFT JOIN directors ON actors.first_name = directors.first_name;
 SELECT  dir.genre , dir.director_id , mov.movie_id  FROM  directors_genres dir LEFT JOIN movies_directors mov ON dir.director_id =  mov.director_id;
 
@@ -195,3 +198,6 @@ WHERE  column_name OPERATOR
    [WHERE])
 
  */
+
+
+--  Refer Here :  https://www.geeksforgeeks.org/sql-numeric-functions/?ref=lbp   [ ALL SUBTOPICS ]
