@@ -22,7 +22,7 @@ SELECT name,rankscore FROM movies LIMIT 20 OFFSET 2;
 -- -----------------------------------------------------------------
 -- KEYWORD ORDER BY ascending & descending order  ASC | DESC
 -- -----------------------------------------------------------------
-SELECT name,rankscore,year FROM movies ORDER BY name LIMIT 10;   -- ORDER BY name ASC
+ SELECT name,rankscore,year FROM movies ORDER BY name LIMIT 10;   -- ORDER BY name ASC  will be similar to ORDER BY 1         (as name is in Column 1)
  SELECT name,id,year FROM movies ORDER BY year DESC LIMIT 10;
 
 
